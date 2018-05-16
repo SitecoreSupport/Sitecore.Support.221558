@@ -113,7 +113,9 @@ namespace Sitecore.Support.Shell.Applications.Dialogs.BreakingLinks
         {
           version.Editing.BeginEdit();
           customField.RemoveLink(itemLink);
-          version.Editing.EndEdit();
+
+          // #221558: make sure the unverioned statistics-related fields won't be updated.
+          version.Editing.EndEdit(false, false);
         }
       }
 
