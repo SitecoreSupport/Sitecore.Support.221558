@@ -24,9 +24,9 @@ namespace Sitecore.Support.Shell.Applications.Dialogs.BreakingLinks
   public class BreakingLinksForm : DialogForm
   {
     /// <summary>
-		/// Represents a RemoveLinks.
-		/// </summary>
-		public class RemoveLinks
+    /// Represents a RemoveLinks.
+    /// </summary>
+    public class RemoveLinks
     {
       #region Fields
 
@@ -114,8 +114,9 @@ namespace Sitecore.Support.Shell.Applications.Dialogs.BreakingLinks
           version.Editing.BeginEdit();
           customField.RemoveLink(itemLink);
 
-          // #221558: make sure the unverioned statistics-related fields won't be updated.
+          #region Modified code
           version.Editing.EndEdit(false, false);
+          #endregion
         }
       }
 
@@ -360,8 +361,9 @@ namespace Sitecore.Support.Shell.Applications.Dialogs.BreakingLinks
             customField.Relink(itemLink, this.item);
             Log.Audit(this, "Relink: {0}, ReferrerItem: {1}", AuditFormatter.FormatItem(this.item), AuditFormatter.FormatItem(sourceItem));
           }
-
-          sourceItem.Editing.EndEdit();
+          #region Modified code
+          sourceItem.Editing.EndEdit(false, false);
+          #endregion
         }
       }
 
@@ -754,7 +756,7 @@ namespace Sitecore.Support.Shell.Applications.Dialogs.BreakingLinks
           htmlTextWriter.Write("</td>");
           htmlTextWriter.Write("<td>");
           htmlTextWriter.Write("<div class=\"scLinkHeader\">");
-          htmlTextWriter.Write(item.GetUIDisplayName());
+          htmlTextWriter.Write(item.DisplayName);
           htmlTextWriter.Write("</div>");
           htmlTextWriter.Write("<div class=\"scLinkDetails\">");
           htmlTextWriter.Write(item.Paths.ContentPath);
